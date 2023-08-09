@@ -261,6 +261,37 @@ function mostPointsScored() {
   return playerWithMostPoints;
 }
 
+// max shoe and rebounds credit to the Amazing Menar 😍
+function bigShoeRebounds() {
+  let object = gameObject();
+
+  let getPlayresHome = (object) => {
+    for (let playersHome in object.home) {
+      return playersHome, object.home["players"];
+    }
+  };
+
+  let getPlayresAway = (object) => {
+    for (let playersAway in object.away) {
+      return playersAway, object.away["players"];
+    }
+  };
+  let players1 = getPlayresHome(object);
+  let players2 = getPlayresAway(object);
+  let players = { ...players1, ...players2 };
+  let state = Object.values(players);
+  let maxShoe = Math.max(...state.map(({ shoe }) => shoe));
+  let statearr = state.filter((obj) => {
+    return obj.shoe === maxShoe;
+  });
+  let rebounds = statearr.map((obj) => {
+    return obj.rebounds;
+  });
+  return { rebounds: rebounds[0], maxShoe };
+}
+
+console.log(bigShoeRebounds());
+
 // Which team has the most points? Call the function winningTeam.
 function winningTeam() {
   const gameData = gameObject();
